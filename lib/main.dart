@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'activity-card.dart';
-import 'activity-form.dart';
-import 'activity.dart';
+import './widgets/user-activities.dart';
 
 void main() => runApp(TimeTrackerApp());
 
@@ -17,26 +14,6 @@ class TimeTrackerApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final List<Activity> activities = [
-    Activity(
-      // id: 1,
-      title: 'Academind course',
-      duration: 65,
-      creationDate: DateTime.now(),
-    ),
-    Activity(
-      //id: 2,
-      title: 'Meeting with Collegues',
-      duration: 133,
-      creationDate: DateTime.now(),
-    ),
-  ];
-
-  void _addActivity(Activity activity) {
-    print(activity.title);
-    //activities.add(activity);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,15 +30,7 @@ class HomePage extends StatelessWidget {
                 elevation: 6,
               ),
             ),
-            ActivityForm(_addActivity),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: activities.map(
-                (activity) {
-                  return ActivityCard(activity);
-                },
-              ).toList(),
-            )
+            UserActivities()
           ],
         ),
       ),
