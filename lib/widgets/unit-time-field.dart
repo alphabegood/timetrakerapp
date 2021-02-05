@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class TimeFormField extends StatelessWidget {
+class UnitTimeField extends StatelessWidget {
   final String unitTimeLabel;
   final TextEditingController controllerField;
 
-  TimeFormField(this.unitTimeLabel, this.controllerField);
+  UnitTimeField(this.unitTimeLabel, this.controllerField);
 
   void _changeUnitTime(value) {
     if (value.length == 3) {

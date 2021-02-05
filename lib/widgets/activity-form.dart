@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import '../models/activity.dart';
-import './time-form-field.dart';
+import './unit-time-field.dart';
 
 class ActivityForm extends StatelessWidget {
   final Function addActivityHandler;
@@ -29,42 +29,6 @@ class ActivityForm extends StatelessWidget {
     addActivityHandler(activity);
   }
 
-  // void _setHours(value) {
-  //   print(value);
-  //   if (value.length == 3) {
-  //     hourField.text = value.toString().substring(1);
-  //     hourField.selection = TextSelection(
-  //         baseOffset: hourField.text.length,
-  //         extentOffset: hourField.text.length);
-  //     print('New Hour ${hourField.text}');
-  //   }
-  // }
-
-  // void _initHoursPointer() {
-  //   hourField.selection = TextSelection(
-  //     baseOffset: hourField.text.length,
-  //     extentOffset: hourField.text.length,
-  //   );
-  // }
-
-  // void _setMinutes(value) {
-  //   print(value);
-  //   if (value.length == 3) {
-  //     minuteField.text = value.toString().substring(1);
-  //     minuteField.selection = TextSelection(
-  //         baseOffset: hourField.text.length,
-  //         extentOffset: hourField.text.length);
-  //     print('New Hour ${hourField.text}');
-  //   }
-  // }
-
-  // void _initMinutesPointer() {
-  //   minuteField.selection = TextSelection(
-  //     baseOffset: hourField.text.length,
-  //     extentOffset: hourField.text.length,
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -76,51 +40,8 @@ class ActivityForm extends StatelessWidget {
           children: [
             Row(
               children: [
-                TimeFormField('Hours', hourField),
-                TimeFormField('Minutes', minuteField),
-                // Container(
-                //   margin: EdgeInsets.only(right: 5),
-                //   child: SizedBox(
-                //     width: 70,
-                //     child: TextField(
-                //       style: TextStyle(
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //       keyboardType: TextInputType.number,
-                //       onChanged: _setHours,
-                //       onTap: _initHoursPointer,
-                //       decoration: InputDecoration(
-                //         labelText: 'Hours',
-                //         hintStyle: TextStyle(
-                //           inherit: false,
-                //           fontWeight: FontWeight.normal,
-                //         ),
-                //         counterText: '',
-                //       ),
-                //       controller: hourField,
-                //     ),
-                //   ),
-                // ),
-                // Container(
-                //   margin: EdgeInsets.only(right: 5),
-                //   child: SizedBox(
-                //     width: 70,
-                //     child: TextField(
-                //       style:
-                //           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                //       keyboardType: TextInputType.number,
-                //       onChanged: _setMinutes,
-                //       onTap: _initMinutesPointer,
-                //       decoration: InputDecoration(
-                //         labelText: 'Minutes',
-                //         hintStyle: TextStyle(inherit: false),
-                //         counterText: '',
-                //       ),
-                //       controller: minuteField,
-                //     ),
-                //   ),
-                // ),
+                UnitTimeField('Hours', hourField),
+                UnitTimeField('Minutes', minuteField),
                 Container(
                   child: Expanded(
                     flex: 1,
