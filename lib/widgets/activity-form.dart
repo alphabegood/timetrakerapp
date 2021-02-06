@@ -15,7 +15,10 @@ class ActivityForm extends StatelessWidget {
 
   ActivityForm(this.addActivityHandler, this.activitiesNumber);
 
-  void addActivity() {
+  void _addActivity() {
+    if (_isFormInvalid()) {
+      return;
+    }
     final activity = Activity(
         id: activitiesNumber,
         title: titleField.text,
@@ -29,6 +32,11 @@ class ActivityForm extends StatelessWidget {
     addActivityHandler(activity);
   }
 
+  bool _isFormInvalid() {
+    return (titleField.text == '' ||
+        (hourField.text == '00' && minuteField.text == '00'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -40,26 +48,28 @@ class ActivityForm extends StatelessWidget {
           children: [
             Row(
               children: [
-                UnitTimeField('Hours', hourField),
-                UnitTimeField('Minutes', minuteField),
+                UnitTimeField('Hours', hourField, _addActivity),
+                UnitTimeField('Minutes', minuteField, _addActivity),
                 Container(
                   child: Expanded(
                     flex: 1,
                     child: TextField(
-                      decoration: InputDecoration(labelText: 'Title'),
-                      controller: titleField,
-                    ),
+                        decoration: InputDecoration(
+                          labelText: 'Title',
+                        ),
+                        controller: titleField,
+                        onSubmitted: (_) => _addActivity()),
                   ),
                 ),
               ],
             ),
             TextField(
-              maxLines: 3,
-              decoration: InputDecoration(
-                labelText: 'Details',
-              ),
-              controller: detailsField,
-            ),
+                maxLines: 3,
+                decoration: InputDecoration(
+                  labelText: 'Details',
+                ),
+                controller: detailsField,
+                onSubmitted: (_) => _addActivity()),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
@@ -68,9 +78,7 @@ class ActivityForm extends StatelessWidget {
                 child: Text(
                   'Add Activity',
                 ),
-                onPressed: () {
-                  addActivity();
-                },
+                onPressed: _addActivity,
               ),
             )
           ],

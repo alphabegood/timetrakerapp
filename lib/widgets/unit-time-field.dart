@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class UnitTimeField extends StatelessWidget {
   final String unitTimeLabel;
   final TextEditingController controllerField;
+  final Function addActivityHandler;
 
-  UnitTimeField(this.unitTimeLabel, this.controllerField);
+  UnitTimeField(
+      this.unitTimeLabel, this.controllerField, this.addActivityHandler);
 
   void _changeUnitTime(value) {
     if (value.length == 3) {
@@ -35,6 +37,7 @@ class UnitTimeField extends StatelessWidget {
           keyboardType: TextInputType.number,
           onChanged: _changeUnitTime,
           onTap: _pullCursorToRight,
+          onSubmitted: (_) => addActivityHandler(),
           decoration: InputDecoration(
             labelText: unitTimeLabel,
             hintStyle: TextStyle(
