@@ -10,6 +10,7 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 1,
       child: Row(
         children: [
           Container(
@@ -17,17 +18,17 @@ class ActivityCard extends StatelessWidget {
             padding: EdgeInsets.all(10),
             width: 85,
             decoration: BoxDecoration(
-                color: Colors.green,
-                border: Border.all(width: 2, color: Colors.black12),
+                color: Theme.of(context).primaryColor,
+                border: Border.all(
+                  width: 2,
+                  color: Theme.of(context).primaryColorLight,
+                ),
                 borderRadius: BorderRadius.all(
                   Radius.circular(3.5),
                 )),
             child: Text(
-              '${activity.hours}h:${activity.minutes}m',
-              style: TextStyle(
-                fontFamily: 'Arial',
-                fontWeight: FontWeight.w700,
-              ),
+              '${activity.hours}h:${activity.minutes}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
           Column(
@@ -40,13 +41,15 @@ class ActivityCard extends StatelessWidget {
               ),
               Text(
                 DateFormat('EEEE, d MMMM HH:mm').format(activity.creationDate),
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 16,
+                ),
               )
             ],
           )
         ],
       ),
-      elevation: 6,
     );
   }
 }

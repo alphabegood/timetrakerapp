@@ -10,23 +10,25 @@ class UserActivities extends StatefulWidget {
 }
 
 class _UserActivitiesState extends State<UserActivities> {
+  bool _showActivityForm = false;
+
   final List<Activity> _activities = [
-    Activity(
-      id: 1,
-      title: 'Academind course',
-      hours: '2',
-      minutes: '10',
-      details: 'Flutter course',
-      creationDate: DateTime.now(),
-    ),
-    Activity(
-      id: 2,
-      title: 'Meeting with Collegues',
-      hours: '1',
-      minutes: '30',
-      details: 'Roadmap design',
-      creationDate: DateTime.now(),
-    ),
+    // Activity(
+    //   id: 1,
+    //   title: 'Academind course',
+    //   hours: '02',
+    //   minutes: '10',
+    //   details: 'Flutter course',
+    //   creationDate: DateTime.now(),
+    // ),
+    // Activity(
+    //   id: 2,
+    //   title: 'Meeting with Collegues',
+    //   hours: '01',
+    //   minutes: '30',
+    //   details: 'Roadmap design',
+    //   creationDate: DateTime.now(),
+    // ),
   ];
 
   void _addActivity(Activity activity) {
@@ -35,15 +37,50 @@ class _UserActivitiesState extends State<UserActivities> {
     print(activity.title);
     setState(() {
       _activities.add(activity);
+      this._showActivityForm = false;
     });
+  }
+
+  void showActivityForm() {
+    setState(() {
+      this._showActivityForm = true;
+    });
+  }
+
+  Widget displayFormButton() {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+              // backgroundColor: Colors.green,
+              onPressed: showActivityForm,
+              child: IconButton(
+                // color: Colors.white,
+                icon: Icon(Icons.add),
+                onPressed: showActivityForm,
+              )),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ActivityForm(_addActivity, _activities.length),
-        ActivityList(_activities),
+        SizedBox(
+          height: 10,
+        ),
+        _showActivityForm
+            ? ActivityForm(_addActivity, _activities.length)
+            : displayFormButton(),
+        SizedBox(
+          height: 10,
+        ),
+        ActivityList(_activities.reversed.toList()),
       ],
     );
   }

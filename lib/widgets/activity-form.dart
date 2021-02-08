@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import '../models/activity.dart';
 import './unit-time-field.dart';
 
@@ -8,9 +7,9 @@ class ActivityForm extends StatelessWidget {
   final Function addActivityHandler;
   final int activitiesNumber;
 
-  final hourField = TextEditingController(text: '00');
-  final minuteField = TextEditingController(text: '00');
-  final titleField = TextEditingController();
+  final hourField = TextEditingController(text: '01');
+  final minuteField = TextEditingController(text: '30');
+  final titleField = TextEditingController(text: 'Tensorflow Tuto');
   final detailsField = TextEditingController();
 
   ActivityForm(this.addActivityHandler, this.activitiesNumber);
@@ -27,8 +26,6 @@ class ActivityForm extends StatelessWidget {
         details: detailsField.text,
         creationDate: DateTime.now());
 
-    print('new Activity' + activity.id.toString());
-
     addActivityHandler(activity);
   }
 
@@ -40,6 +37,7 @@ class ActivityForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 6,
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.all(15),
@@ -64,20 +62,17 @@ class ActivityForm extends StatelessWidget {
               ],
             ),
             TextField(
-                maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: 'Details',
-                ),
-                controller: detailsField,
-                onSubmitted: (_) => _addActivity()),
+              maxLines: 3,
+              decoration: InputDecoration(
+                labelText: 'Details',
+              ),
+              controller: detailsField,
+              onSubmitted: (_) => _addActivity(),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: Colors.white,
-                textColor: Colors.green,
-                child: Text(
-                  'Add Activity',
-                ),
+              child: ElevatedButton(
+                child: Icon(Icons.add_sharp),
                 onPressed: _addActivity,
               ),
             )
