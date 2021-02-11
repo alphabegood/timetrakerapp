@@ -4,6 +4,7 @@ class Activity {
   String hours;
   String minutes;
   String details;
+  DateTime assignedDate;
   DateTime creationDate;
 
   Activity(
@@ -12,5 +13,6 @@ class Activity {
       this.hours,
       this.minutes,
       this.details,
+      this.assignedDate,
       this.creationDate});
 }

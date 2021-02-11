@@ -1,87 +1,66 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import './week-chart.dart';
 import './activity-list.dart';
-import './activity-form.dart';
 import '../models/activity.dart';
 
 class UserActivities extends StatefulWidget {
+  final double appSize;
+  final List<Activity> activities;
+  final Function removeActivityHandler;
+
+  UserActivities(this.appSize, this.activities, this.removeActivityHandler);
+
   @override
   _UserActivitiesState createState() => _UserActivitiesState();
 }
 
 class _UserActivitiesState extends State<UserActivities> {
-  bool _showActivityForm = false;
+  _UserActivitiesState();
 
-  final List<Activity> _activities = [
-    // Activity(
-    //   id: 1,
-    //   title: 'Academind course',
-    //   hours: '02',
-    //   minutes: '10',
-    //   details: 'Flutter course',
-    //   creationDate: DateTime.now(),
-    // ),
-    // Activity(
-    //   id: 2,
-    //   title: 'Meeting with Collegues',
-    //   hours: '01',
-    //   minutes: '30',
-    //   details: 'Roadmap design',
-    //   creationDate: DateTime.now(),
-    // ),
-  ];
+  DateTime selectedDate = DateTime.now();
+  List<Activity> selectedActivities = [];
 
-  void _addActivity(Activity activity) {
-    //Assign a auto-increment id
-    activity.id = _activities.length;
-    print(activity.title);
+  _selectDate(DateTime date) {
     setState(() {
-      _activities.add(activity);
-      this._showActivityForm = false;
+      selectedDate = date;
+      print('Select Date $selectedDate');
     });
   }
 
-  void showActivityForm() {
+  filterActivities() {
     setState(() {
-      this._showActivityForm = true;
+      selectedActivities = widget.activities.reversed.where((activity) {
+        return DateFormat('Mdy').format(activity.assignedDate) ==
+            DateFormat('Mdy').format(selectedDate);
+      }).toList();
     });
-  }
-
-  Widget displayFormButton() {
-    return Container(
-      margin: EdgeInsets.only(right: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-              // backgroundColor: Colors.green,
-              onPressed: showActivityForm,
-              child: IconButton(
-                // color: Colors.white,
-                icon: Icon(Icons.add),
-                onPressed: showActivityForm,
-              )),
-        ],
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 10,
-        ),
-        _showActivityForm
-            ? ActivityForm(_addActivity, _activities.length)
-            : displayFormButton(),
-        SizedBox(
-          height: 10,
-        ),
-        ActivityList(_activities.reversed.toList()),
-      ],
+    //  print('AppSize ${widget.appSize} actvities ${widget.activities.length}');
+
+    filterActivities();
+
+    return Container(
+      height: widget.appSize,
+      child: LayoutBuilder(builder: (context, constraints) {
+        return Column(
+          children: [
+            Container(
+              height: constraints.maxHeight * 0.25,
+              child: WeekChart(widget.activities, _selectDate, selectedDate),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              height: constraints.maxHeight * 0.6,
+              child: ActivityList(selectedActivities, selectedDate,
+                  widget.removeActivityHandler),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

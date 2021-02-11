@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import './models/activity.dart';
+import './widgets/activity-form.dart';
 import './widgets/user-activities.dart';
-import './widgets/week-chart.dart';
-import './models/grouped-activities.dart';
 
 void main() => runApp(TimeTrackerApp());
 
@@ -19,54 +19,75 @@ class TimeTrackerApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  // var showForm = false;
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-  // void showActivityForm() {
-  //   showForm = true;
-  // }
+class _HomePageState extends State<HomePage> {
+  final showActivityForm = false;
+  List<Activity> activities = [];
 
-  List<GroupedActivities> groupedActivities = [
-    GroupedActivities(DateTime.now().subtract(Duration(days: 6)), '02h30'),
-    GroupedActivities(DateTime.now().subtract(Duration(days: 5)), '02h30'),
-    GroupedActivities(DateTime.now().subtract(Duration(days: 4)), '02h30'),
-    GroupedActivities(DateTime.now().subtract(Duration(days: 3)), '02h30'),
-    GroupedActivities(DateTime.now().subtract(Duration(days: 2)), '02h30'),
-    GroupedActivities(DateTime.now().subtract(Duration(days: 1)), '02h30'),
-    GroupedActivities(DateTime.now().subtract(Duration(days: 0)), '02h30'),
-  ].toList();
+  void _addActivity(Activity activity) {
+    setState(() {
+      activity.id = activities.length;
+      activities.add(activity);
+    });
+  }
+
+  void _removeActivity(Activity activity) {
+    setState(() {
+      activities.removeWhere((element) => element.id == activity.id);
+    });
+  }
+
+  void _displayActivityForm(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return GestureDetector(
+            child: Container(
+              height: 500,
+              child: ActivityForm(_addActivity),
+            ),
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var localAppBar = AppBar(
+        title: Text(
+          'Personal Time Tracker',
+          style: TextStyle(),
+        ),
+
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.add),
+        //     onPressed: () {},
+        //   )
+        // ],
+        backgroundColor: Colors.green[400]);
+
+    var appSize = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        localAppBar.preferredSize.height;
+
     return Container(
       child: Scaffold(
-        appBar: AppBar(
-            title: Text(
-              'Personal Time Tracker',
-              style: TextStyle(),
-            ),
-
-            // actions: [
-            //   IconButton(
-            //     icon: Icon(Icons.add),
-            //     onPressed: () {},
-            //   )
-            // ],
-            backgroundColor: Colors.green[400]),
+        appBar: localAppBar,
         body: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: WeekChart(groupedActivities),
-            ),
-            UserActivities()
-          ],
+          children: [UserActivities(appSize, activities, _removeActivity)],
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   child: Icon(Icons.add),
-        //   backgroundColor: Colors.green[400],
-        //   onPressed: ()  {},
-        // ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Theme.of(context).primaryColor,
+          onPressed: () => _displayActivityForm(context),
+        ),
       ),
     );
   }
