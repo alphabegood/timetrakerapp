@@ -72,7 +72,7 @@ class _ActivityFormState extends State<ActivityForm> {
       elevation: 6,
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

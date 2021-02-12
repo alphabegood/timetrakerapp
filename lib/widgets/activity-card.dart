@@ -30,9 +30,12 @@ class ActivityCard extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(3.5),
                   )),
-              child: Text(
-                '${activity.hours}h : ${activity.minutes}',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  '${activity.hours}h:${activity.minutes}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
               ),
             ),
             Expanded(
@@ -40,18 +43,25 @@ class ActivityCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    activity.title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(
-                    DateFormat('EEEE, d MMMM HH:mm')
-                        .format(activity.assignedDate),
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 16,
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      activity.title,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
-                  )
+                  ),
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      DateFormat('EEEE, d MMMM HH:mm')
+                          .format(activity.assignedDate),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

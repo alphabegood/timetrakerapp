@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import './models/activity.dart';
 import './widgets/activity-form.dart';
@@ -44,10 +45,11 @@ class _HomePageState extends State<HomePage> {
   void _displayActivityForm(BuildContext context) {
     showModalBottomSheet(
         context: context,
+        //isScrollControlled: true,
         builder: (_) {
           return GestureDetector(
             child: Container(
-              height: 500,
+              height: 500, //Big screen
               child: ActivityForm(_addActivity),
             ),
             onTap: () {},
@@ -63,13 +65,14 @@ class _HomePageState extends State<HomePage> {
           'Personal Time Tracker',
           style: TextStyle(),
         ),
-
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {},
-        //   )
-        // ],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              _displayActivityForm(context);
+            },
+          )
+        ],
         backgroundColor: Colors.green[400]);
 
     var appSize = MediaQuery.of(context).size.height -
@@ -78,17 +81,21 @@ class _HomePageState extends State<HomePage> {
 
     return Container(
       child: Scaffold(
-        appBar: localAppBar,
-        body: Column(
-          children: [UserActivities(appSize, activities, _removeActivity)],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () => _displayActivityForm(context),
-        ),
-      ),
+          appBar: localAppBar,
+          body: SafeArea(
+            child: Column(
+              children: [UserActivities(appSize, activities, _removeActivity)],
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: !Platform.isIOS
+              ? FloatingActionButton(
+                  child: Icon(Icons.add),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  onPressed: () => _displayActivityForm(context),
+                )
+              : Container()),
     );
   }
 }

@@ -44,51 +44,60 @@ class _ChartBarState extends State<ChartBar> {
   @override
   Widget build(BuildContext context) {
     _calculateBarPercent();
-    return Column(
-      children: [
-        Text(widget.dayTimes),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          height: maxHeight,
-          width: 12,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black87,
-              style: BorderStyle.solid,
+    return Container(
+      width: 30,
+      child: Column(
+        children: [
+          FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(widget.dayTimes),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            height: maxHeight,
+            width: 12,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black87,
+                style: BorderStyle.solid,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: filledBarHeight,
+                  color: Colors.red,
+                )
+              ],
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: filledBarHeight,
-                color: Colors.red,
-              )
-            ],
+          SizedBox(
+            height: 5,
           ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            setState(() {
-              print('Select On Tap ${widget.dayName}');
-              widget.selectDateHandler(widget.dayName);
-            });
-          },
-          child: Text(
-            DateFormat('E, d').format(widget.dayName),
-            style: TextStyle(
-                fontWeight:
-                    _selectedDate ? FontWeight.bold : FontWeight.normal),
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              setState(() {
+                print('Select On Tap ${widget.dayName}');
+                widget.selectDateHandler(widget.dayName);
+              });
+            },
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                DateFormat('E, d').format(widget.dayName),
+                style: TextStyle(
+                    fontWeight:
+                        _selectedDate ? FontWeight.bold : FontWeight.normal),
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

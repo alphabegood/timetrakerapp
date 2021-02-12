@@ -32,7 +32,7 @@ class _NoActivityGraphicState extends State<NoActivityGraphic> {
         return Column(
           children: [
             Text(
-              'No activities added yet for ${dateStr}!',
+              'No activities added yet for $dateStr!',
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
             ),
             Container(
