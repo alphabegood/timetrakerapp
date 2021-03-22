@@ -1,6 +1,7 @@
 # timetrackerapp
 
 This application is a time tracker written in flutter/dart. No database is required.
+This has a interactive chart to help select the day and see the activities on that day.
 
 ## Getting Started
 
@@ -22,8 +23,21 @@ Then run the app using the command below which prompt you to choose the device d
 ## Screenshots
 
 Home page:
- ![alt text](https://github.com/alphabegood/timetrakerapp/screenshots/home-without-activities.jpg)
+ ![alt text](https://raw.githubusercontent.com/alphabegood/timetrakerapp/master/screenshots/home-without-activities.jpg)
 
 Activity Form 
-![alt text](ttps://github.com/alphabegood/timetrakerapp/screenshots/form-activity-with-date.jpg) 
+![alt text](https://raw.githubusercontent.com/alphabegood/timetrakerapp/master/screenshots/form-activity-with-date.jpg) 
 
+Date picker on Form
+![alt text](https://raw.githubusercontent.com/alphabegood/timetrakerapp/master/screenshots/Date-picker.jpg)
+
+
+Date picker on Form
+![alt text](https://raw.githubusercontent.com/alphabegood/timetrakerapp/master/screenshots/Date-picker.jpg)
+
+
+current date Activity list
+![alt text](https://raw.githubusercontent.com/alphabegood/timetrakerapp/master/screenshots/activity-list.jpg)
+
+Other day activity list
+![alt text](https://raw.githubusercontent.com/alphabegood/timetrakerapp/master/screenshots/other-day-activity-list.jpg)
