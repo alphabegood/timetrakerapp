@@ -1,16 +1,29 @@
 # timetrackerapp
 
-A new Flutter project.
+This application is a time tracker written in flutter/dart. No database is required.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This requires to have flutter already installed and all the extensions needed for the IDE used.
 
-A few resources to get you started if this is your first Flutter project:
+## Install the project
+Clone de repository locally by running in command line:
+```git clone https://github.com/alphabegood/timetrakerapp.git```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Install all the packages required of the folder of this project
+```flutter pub get```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To run the project check the available devices with
+```flutter devices```
+
+Then run the app using the command below which prompt you to choose the device desired:
+```flutter run```
+
+## Screenshots
+
+Home page:
+ ![alt text](https://github.com/alphabegood/timetrakerapp/screenshots/home-without-activities.jpg)
+
+Activity Form 
+![alt text](ttps://github.com/alphabegood/timetrakerapp/screenshots/form-activity-with-date.jpg) 
+
